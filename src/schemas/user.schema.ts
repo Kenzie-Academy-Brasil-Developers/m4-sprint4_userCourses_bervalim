@@ -4,7 +4,7 @@ export const userResponseSchema = z.object({
   id: z.number().positive(),
   name: z.string().max(50).min(3),
   email: z.string().email().max(50).min(3),
-  password: z.string().max(255),
+  password: z.string().nonempty().max(255),
   admin: z.boolean().default(false),
 });
 
