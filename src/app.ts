@@ -1,6 +1,7 @@
-import express, { Application, json } from 'express'
+import express, { Application, json } from "express";
 
-const app: Application = express()
-app.use(json())
+const app: Application = express();
 
-export default app
+app.use(express.json());
+
+export default app;
