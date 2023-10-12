@@ -1,5 +1,8 @@
 import { Router } from "express";
-import { createUserController } from "../controllers/user.controller";
+import {
+  createUserController,
+  readAllUserController,
+} from "../controllers/user.controller";
 import { validateBody } from "../middlewares/validateBody.middleware";
 import { userCreateRequestSchema } from "../schemas/user.schema";
 import { verifyEmailExists } from "../middlewares/verifyEmailExists.middleware";
@@ -12,3 +15,4 @@ userRouter.post(
   verifyEmailExists,
   createUserController
 );
+userRouter.get("/", readAllUserController);
