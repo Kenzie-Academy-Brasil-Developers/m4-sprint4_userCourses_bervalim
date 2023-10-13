@@ -34,3 +34,4 @@ coursesRouter.delete(
   verifyPermission,
   deactivateUserCourseRegistrationController
 );
+coursesRouter.get("/:courseId/users", verifyToken, verifyPermission);
