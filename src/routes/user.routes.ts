@@ -7,6 +7,7 @@ import { validateBody } from "../middlewares/validateBody.middleware";
 import { userCreateRequestSchema } from "../schemas/user.schema";
 import { verifyEmailExists } from "../middlewares/verifyEmailExists.middleware";
 import { verifyToken } from "../middlewares/verifyToken.middleware";
+import { verifyPermission } from "../middlewares/verifyPermission.middleware";
 
 export const userRouter: Router = Router();
 
@@ -16,4 +17,4 @@ userRouter.post(
   verifyEmailExists,
   createUserController
 );
-userRouter.get("/", verifyToken, readAllUserController);
+userRouter.get("/", verifyToken, verifyPermission, readAllUserController);
