@@ -8,6 +8,7 @@ import {
   enrollUserInACourseController,
   readAllCoursesController,
 } from "../controllers/courses.controller";
+import { verifyIdCoursesUsers } from "../middlewares/verifyIdCoursesUsers.middlewares";
 
 export const coursesRouter: Router = Router();
 coursesRouter.post(
@@ -20,6 +21,7 @@ coursesRouter.post(
 coursesRouter.get("/", readAllCoursesController);
 coursesRouter.post(
   "/:courseId/users/:userId",
+  verifyIdCoursesUsers,
   verifyToken,
   verifyPermission,
   enrollUserInACourseController
