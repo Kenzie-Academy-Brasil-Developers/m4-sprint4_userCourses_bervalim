@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   createCourseService,
+  deactivateUserCourseRegistrationService,
   enrollUserInACourseService,
   readAllCoursesService,
 } from "../services/courses.service";
@@ -36,4 +37,15 @@ export const enrollUserInACourseController = async (
   return res
     .status(201)
     .json({ message: "User successfully vinculed to course" });
+};
+
+export const deactivateUserCourseRegistrationController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userId = Number(req.params.userId);
+  const courseId = Number(req.params.courseId);
+
+  await deactivateUserCourseRegistrationService(userId, courseId);
+  return res.status(204).json();
 };

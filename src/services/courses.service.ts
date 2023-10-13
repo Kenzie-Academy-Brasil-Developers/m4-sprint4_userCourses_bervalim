@@ -41,3 +41,11 @@ export const enrollUserInACourseService = async (
 
   await client.query(query);
 };
+
+export const deactivateUserCourseRegistrationService = async (
+  userId: number,
+  courseId: number
+) => {
+  const query: string = `UPDATE "userCourses" SET "active"=false WHERE "userId" = $1 AND "courseId" =$2;`;
+  await client.query(query, [userId, courseId]);
+};

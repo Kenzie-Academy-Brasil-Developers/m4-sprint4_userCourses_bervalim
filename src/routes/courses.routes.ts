@@ -5,6 +5,7 @@ import { verifyToken } from "../middlewares/verifyToken.middleware";
 import { verifyPermission } from "../middlewares/verifyPermission.middleware";
 import {
   createCourseController,
+  deactivateUserCourseRegistrationController,
   enrollUserInACourseController,
   readAllCoursesController,
 } from "../controllers/courses.controller";
@@ -25,4 +26,11 @@ coursesRouter.post(
   verifyToken,
   verifyPermission,
   enrollUserInACourseController
+);
+coursesRouter.delete(
+  "/:courseId/users/:userId",
+  verifyIdCoursesUsers,
+  verifyToken,
+  verifyPermission,
+  deactivateUserCourseRegistrationController
 );
