@@ -3,7 +3,11 @@ import { validateBody } from "../middlewares/validateBody.middleware";
 import { courseRequestSchema } from "../schemas/courses.schema";
 import { verifyToken } from "../middlewares/verifyToken.middleware";
 import { verifyPermission } from "../middlewares/verifyPermission.middleware";
-import { createCourseController } from "../controllers/courses.controller";
+import {
+  createCourseController,
+  enrollUserInACourseController,
+  readAllCoursesController,
+} from "../controllers/courses.controller";
 
 export const coursesRouter: Router = Router();
 coursesRouter.post(
@@ -12,4 +16,11 @@ coursesRouter.post(
   verifyPermission,
   validateBody(courseRequestSchema),
   createCourseController
+);
+coursesRouter.get("/", readAllCoursesController);
+coursesRouter.post(
+  "/:courseId/users/:userId",
+  verifyToken,
+  verifyPermission,
+  enrollUserInACourseController
 );

@@ -11,3 +11,14 @@ export const courseRequestSchema = courseResponseSchema.omit({
 });
 
 export const courseReadSchema = courseResponseSchema.array();
+
+export const userCourseResponseSchema = z.object({
+  id: z.number().positive(),
+  active: z.boolean().default(true),
+  userId: z.number().positive(),
+  courseId: z.number().positive(),
+});
+
+export const userCourseRequestSchema = userCourseResponseSchema.omit({
+  id: true,
+});
