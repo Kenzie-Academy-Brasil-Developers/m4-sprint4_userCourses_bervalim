@@ -8,6 +8,7 @@ import {
   deactivateUserCourseRegistrationController,
   enrollUserInACourseController,
   readAllCoursesController,
+  readAllUserCoursesController,
 } from "../controllers/courses.controller";
 import { verifyIdCoursesUsers } from "../middlewares/verifyIdCoursesUsers.middlewares";
 
@@ -34,4 +35,9 @@ coursesRouter.delete(
   verifyPermission,
   deactivateUserCourseRegistrationController
 );
-coursesRouter.get("/:courseId/users", verifyToken, verifyPermission);
+coursesRouter.get(
+  "/:courseId/users",
+  verifyToken,
+  verifyPermission,
+  readAllUserCoursesController
+);

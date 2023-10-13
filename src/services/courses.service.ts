@@ -5,8 +5,10 @@ import {
   tCoursesResponse,
   tCoursesResult,
   tUserCourseRequest,
+  tUserCourseResult,
 } from "../interfaces/courses.interface";
 import { client } from "../database";
+import AppError from "../errors/App.error";
 
 export const createCourseService = async (
   bodyRequest: tCoursesRequest
@@ -48,4 +50,32 @@ export const deactivateUserCourseRegistrationService = async (
 ) => {
   const query: string = `UPDATE "userCourses" SET "active"=false WHERE "userId" = $1 AND "courseId" =$2;`;
   await client.query(query, [userId, courseId]);
+};
+
+export const readAllUserCoursesService = async (courseId: string) => {
+  const query: string = format(
+    `
+    SELECT 
+      "u"."id" "userId",
+      "u"."name" "userName",
+      "c"."id" "courseId",
+      "c"."name" "courseName",
+      "c"."description" "courseDescription",
+      "uc"."active" "userActiveInCourse"
+    FROM "users" "u"
+    JOIN "userCourses" "uc"
+      ON "u"."id" = "uc"."userId"
+    JOIN "courses" "c"
+      ON "c"."id" = "uc"."courseId"
+    WHERE "c"."id" = (%L)
+    ;`,
+    courseId
+  );
+
+  const data: tUserCourseResult = await client.query(query);
+
+  if (data.rowCount === 0) {
+    throw new AppError("User/course not found");
+  }
+  return data.rows;
 };

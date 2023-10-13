@@ -4,9 +4,9 @@ import {
   deactivateUserCourseRegistrationService,
   enrollUserInACourseService,
   readAllCoursesService,
+  readAllUserCoursesService,
 } from "../services/courses.service";
 import { tUserCourseRequest } from "../interfaces/courses.interface";
-import { tUserCreateRequest } from "../interfaces/user.interface";
 
 export const createCourseController = async (
   req: Request,
@@ -45,7 +45,14 @@ export const deactivateUserCourseRegistrationController = async (
 ): Promise<Response> => {
   const userId = Number(req.params.userId);
   const courseId = Number(req.params.courseId);
-
   await deactivateUserCourseRegistrationService(userId, courseId);
   return res.status(204).json();
+};
+
+export const readAllUserCoursesController = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const userCourses = await readAllUserCoursesService(req.params.courseId);
+  return res.status(200).json(userCourses);
 };
