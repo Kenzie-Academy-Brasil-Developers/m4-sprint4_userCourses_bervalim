@@ -2,7 +2,6 @@ import { hash } from "bcryptjs";
 import {
   tUserCreateRequest,
   tUserRead,
-  tUserResponse,
   tUserResult,
   tUserReturnNoPassword,
 } from "../interfaces/user.interface";

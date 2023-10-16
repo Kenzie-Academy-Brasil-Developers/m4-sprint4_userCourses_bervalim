@@ -1,9 +1,5 @@
 import { Request, Response } from "express";
-import {
-  tUserRead,
-  tUserResponse,
-  tUserReturnNoPassword,
-} from "../interfaces/user.interface";
+import { tUserRead, tUserReturnNoPassword } from "../interfaces/user.interface";
 import {
   createUserService,
   readAllUserCoursesService,
